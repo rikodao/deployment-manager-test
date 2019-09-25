@@ -1,0 +1,24 @@
+resources:
+- type: compute.v1.instance
+  # 構成ファイルから環境変数を受け取っている
+  name: vm-{{ env["deployment"] }}
+  properties:
+    zone: {{ properties["zone"] }}
+    # カスタムマシンタイプの定義を記載している。
+    machineType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/machineTypes/custom-4-5120
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        # 構成ファイルから環境変数を受け取っている
+        diskName: disk-{{ env["deployment"] }}
+        sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-7-wheezy-v20140619
+    # ネットワークインターフェースを定義している    
+    networkInterfaces:
+    - network: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/global/networks/default
+      # Access Config required to give the instance a public IP address
+      accessConfigs:
+      - name: External NAT
+        type: ONE_TO_ONE_NAT
