@@ -14,7 +14,7 @@ resources:
       initializeParams:
         # 構成ファイルから環境変数を受け取っている
         diskName: disk-{{ env["deployment"] }}
-        sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/debian-7-wheezy-v20140619
+        sourceImage: https://www.googleapis.com/compute/v1/projects/coreos-cloud/global/images/coreos-stable-2191-5-0-v20190904
     # ネットワークインターフェースを定義している    
     networkInterfaces:
     - network: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/global/networks/default
