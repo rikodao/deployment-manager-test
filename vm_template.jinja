@@ -1,8 +1,9 @@
 resources:
 - type: compute.v1.instance
-  # 構成ファイルから環境変数を受け取っている
+  # 環境変数を受け取っている
   name: vm-{{ env["deployment"] }}
   properties:
+    # 構成ファイルからpropertiesを受け取っている
     zone: {{ properties["zone"] }}
     # カスタムマシンタイプの定義を記載している。
     machineType: https://www.googleapis.com/compute/v1/projects/{{ env["project"] }}/zones/{{ properties["zone"] }}/machineTypes/custom-4-5120
@@ -12,7 +13,7 @@ resources:
       boot: true
       autoDelete: true
       initializeParams:
-        # 構成ファイルから環境変数を受け取っている
+        # 環境変数を受け取っている
         diskName: disk-{{ env["deployment"] }}
         sourceImage: https://www.googleapis.com/compute/v1/projects/coreos-cloud/global/images/coreos-stable-2191-5-0-v20190904
     # ネットワークインターフェースを定義している    
